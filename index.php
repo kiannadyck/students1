@@ -16,10 +16,24 @@ $f3->set('DEBUG', 3);
 // Define a default route
 $f3->route('GET /', function($f3) {
 
-    echo "hello";
+    // require database connection file
+    require ("/home/kdyckgre/config.php");
+
+    try {
+        // instantiate a PDO object using a PDO constructor
+        $dbh = new PDO(DB_DSN,
+            DB_USERNAME,
+            DB_PASSWORD);
+        echo "Connected to database!";
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return;
+    }
+
+
     // load a template
-//    $template = new Template();
-//    echo $template->render('views/info.html');
+    $template = new Template();
+    echo $template->render('views/all-students.html');
 
 
 });
